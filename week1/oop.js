@@ -5,6 +5,7 @@ class Movie {
         this.title = title;
         this.director = director;
         this.stars = [];
+        this.ratings = [];
     }
 
     getTitle() {
@@ -34,11 +35,15 @@ class Movie {
     }
 
     addRating(rating) {
-        this.rating = rating;
+        this.ratings.push(rating);
     }
 
     getAverageRating() {
-
+        let sum = 0;
+        for (let i = 0; i < this.ratings.length; i++) {
+            sum += this.ratings[i];
+        }
+        return console.log(`the Average Rating is : ${sum / this.ratings.length}`);
     }
 
 }
@@ -68,32 +73,26 @@ class StaffMember {
     }
 }
 
-
-
-// const myMovie = new Movie('Get Out', 'Jordan Peele');
 const myMovie = new Movie('The Shawshank Redemption', ' Frank Darabont');
-// const myMovie = new Movie('Se7en', ' David Fincher');
-// const myMovie = new Movie('Inception', ' Christopher Nolan');
-// const myMovie = new Movie('Meet the Parents', 'Jay Roach');
 
 
-// const firstActor = new StaffMember(' Daniel Kaluuya', 'Star', 1987);
 const firstActor = new StaffMember('Tim Robbins', 'Star', 1958);
 const secondActor = new StaffMember(' Morgan Freeman', 'Star', 1937);
-// const fourthActor = new StaffMember('Leonardo DiCaprio', 'Star', 1974);
-// const fifthActor = new StaffMember('Robert De Niro', 'Star', 1943);
 
 
 myMovie.addStar(firstActor);
 myMovie.addStar(secondActor);
-// myMovie.addStar(thirdActor);
-// myMovie.addStar(fourthActor);
-// myMovie.addStar(fifthActor);
-
 
 
 console.log(myMovie.getStars().map(actor => `${actor.getName()} ${actor.getAge()}`));
 console.log(myMovie.getTitle());
 const director = myMovie.getDirector();
-console.log("Director :",director);
-// console.log(`Director: ${director.getName()}`);
+
+myMovie.addRating(9);
+myMovie.addRating(9);
+myMovie.addRating(8);
+myMovie.addRating(6);
+myMovie.addRating(7);
+
+console.log(`Director: ${director}`);
+console.log(myMovie.getAverageRating());
