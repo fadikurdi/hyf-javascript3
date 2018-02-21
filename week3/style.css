@@ -1,0 +1,11 @@
+#hyf_Img{
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+    position: fixed;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+}
+body{
+    text-align: center;
+}
