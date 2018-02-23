@@ -1,11 +1,121 @@
-#hyf_Img{
-    opacity: 0.3;
-    filter: alpha(opacity=30);
-    position: fixed;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-}
 body{
-    text-align: center;
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/41294/hero.jpg) no-repeat center center fixed;
+    background-size:cover;
+    font-family: 'Amiri', serif;  
 }
+#input{
+    width: 700px;
+    height: 150px;
+    font-size: 80px;
+    margin-left: 33%;
+    margin-top: 15%;
+    color: #ccc;border: 0;
+    background: transparent;
+    border-radius: 3px 0 0 3px;
+}
+#input::-webkit-input-placeholder {
+    font-size: 70px;
+    line-height: 5;
+    
+}
+#input:-webkit-autofill,
+#input:-webkit-autofill:hover,
+#input:-webkit-autofill:focus,
+#input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.418) !important;
+}
+#input:focus {
+    outline: 0;
+    background:transparent;
+}
+#rep_Button {
+    margin-left: 43%;
+    margin-top: 1%;
+    display: inline-block;
+    height: 100px;
+    width: 150px;
+    background: transparent;
+    border-width: 0px;
+    border-radius: 5px; 
+    font-size:25px;
+    color: white;
+    opacity: 0.5;    
+}   
+#rep_Button:hover {
+    background: #fff;
+    opacity: 0.2;
+    color:rgb(253, 5, 5);   
+}
+#rep_Button:active {box-shadow: 0px 0px 12px 0px rgba(225, 225, 225, 1);}
+#user_Button {
+    display: inline-block;
+    height: 100px;
+    width: 150px;
+    background: transparent;
+    border-width: 0px;
+    border-radius: 5px; 
+    font-size:25px;
+    color: white;
+    opacity: 0.5;
+}
+#user_Button:hover {
+    background: #fff;
+    opacity: 0.2;
+    color:rgb(253, 5, 5);
+}
+ #user_Button:active {
+    box-shadow: 0px 0px 12px 0px rgba(225, 225, 225, 1);
+}
+ #user_Button:focus {
+    outline: 0;
+}
+#users {
+    margin-top: 25%;
+    background: rgba(252, 250, 250, 0.171);
+    box-shadow:0px 0px 200px 100px rgba(0, 0, 0, 0.808);
+    text-align: center;
+
+}
+
+ h1 {
+    font-size: 70px;
+    font-family: 'Lobster', helvetica, arial;
+}
+h2{
+     font-size: 50px;
+    font-family: 'Lobster', helvetica, arial;
+}
+h3,h4{
+    font-size: 30px;
+    font-family: 'Lobster', helvetica;
+}
+img{
+    height: 300px;
+    width: 300px;
+    position: relative;
+    border-radius: 50%;
+     -webkit-transition: all 1s ease;
+     -moz-transition: all 1s ease;
+       -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+          transition: all 1s ease;
+}
+img:hover{
+    -webkit-filter: grayscale(100%);
+}
+#users>div{text-align: center;display: inline;}
+#rep{
+     margin-top: 25%;
+    background: rgba(252, 250, 250, 0.171);
+    box-shadow:0px 0px 200px 100px rgba(0, 0, 0, 0.808);
+    text-align: center;
+
+}
+#rep>div{
+    text-align: center;
+    display: inline;
+  }
+
+  
+  

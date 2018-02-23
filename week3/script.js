@@ -1,7 +1,11 @@
-"use strict"
+"use strict";
 
 {
     const searchValue = document.getElementById('input');
+
+
+    const users = document.getElementById('users');
+    const rep = document.getElementById('rep');
 
 
     document.getElementById('rep_Button')
@@ -10,7 +14,6 @@
 
     document.getElementById('user_Button')
         .addEventListener('click', hyfUser, true);
-
 
 
     function fetchJSON(url) {
@@ -25,11 +28,16 @@
         );
     }
 
-    function hyfRep(data) {
+    function hyfRep() {
         fetchJSON('https://api.github.com/repos/HackYourFuture/' + searchValue.value).then(data => {
             if (data.message) {
+                users.innerHTML = "";
+                rep.innerHTML = "";
                 createAndAppend('h1', rep, 'this repository does not exist ');
             } else {
+                rep.innerHTML = "";
+                users.innerHTML = "";
+
 
                 const repLink = data.svn_url;
 
@@ -38,12 +46,12 @@
 
                 createAndAppend('h1', rep, 'Repository Name : ' + data.name);
                 createAndAppend('h2', rep, 'Description : ' + data.description);
-                createAndAppend('h4', rep, ' Created at : ' + data.created_at);
-                createAndAppend('h4', rep, ' Updated at ' + data.updated_at);
-                createAndAppend('h4', rep, 'Pushed at : ' + data.pushed_at);
-                createAndAppend('h4', rep, ' Forks : ' + data.forks);
-                createAndAppend('h4', rep, 'On Branch : ' + data.default_branch);
-                createAndAppend('h4', rep, hyfRepLink);
+                createAndAppend('h3', rep, ' Created at : ' + data.created_at);
+                createAndAppend('h3', rep, ' Updated at ' + data.updated_at);
+                createAndAppend('h3', rep, 'Pushed at : ' + data.pushed_at);
+                createAndAppend('h3', rep, ' Forks : ' + data.forks);
+                createAndAppend('h3', rep, 'On Branch : ' + data.default_branch);
+                createAndAppend('h3', rep, hyfRepLink);
 
                 fetchJSON(contributorsUrl).then(data => {
                     createAndAppend('h2', rep, 'Contributors : ');
@@ -53,13 +61,13 @@
                         const contributorImg = element.avatar_url;
                         const contributorImgLink = '<img src="' + contributorImg + '">';
 
-                        createAndAppend('h3', rep, 'Name : ' + element.login);
+                        createAndAppend('h2', rep, ' - Name : ' + element.login);
                         createAndAppend('div', rep, contributorImgLink);
-                        createAndAppend('h3', rep, 'contributions : ' + element.contributions);
+                        createAndAppend('h2', rep, 'contributions : ' + element.contributions);
                     });
 
 
-                })
+                });
 
             }
         });
@@ -69,66 +77,73 @@
     function hyfUser() {
         fetchJSON("https://api.github.com/users/" + searchValue.value + "/repos").then(data => {
             if (data.message) {
+                users.innerHTML = "";
+                rep.innerHTML = "";
                 createAndAppend('h1', users, 'this user does not exist');
             } else {
+                users.innerHTML = "";
+                rep.innerHTML = "";
 
-                createAndAppend('h1', users, data[0].owner.login);
-                const userImg = '<img id="userImg" src="' + data[0].owner.avatar_url + '">';
-                createAndAppend('div', users, userImg);
-                createAndAppend('h3', users, '<a href="' + data[0].owner.html_url + '">' + 'visit user' + '</a>');
+                const userName = document.createElement('h1');
+                userName.innerHTML = data[0].owner.login;
+                users.appendChild(userName);
+
+
+                const userImg = document.createElement('img');
+                userImg.setAttribute('src', data[0].owner.avatar_url);
+                users.appendChild(userImg);
+
+                const userLink = document.createElement('a');
+                userLink.setAttribute('href', data[0].owner.html_url);
+                userLink.innerHTML = '<h3>' + 'Visit user' + '</h3>';
+
+                users.appendChild(userLink);
+                // createAndAppend('h3', users, '<a href="' + data[0].owner.html_url + '">' + 'visit user' + '</a>');
                 createAndAppend('h1', users, 'Repositories :');
-
-                createAndAppend('h4', users, data.created_at);
 
                 for (const key in data) {
 
-                    let userInfo = " ";
+                    const repositoryDiv = document.createElement('div');
+                    repositoryDiv.setAttribute('id', data[key].name);
 
-                    userInfo += '<div id =' + data[key].name + '>' + '<br>'
-                        + '<h2>' + '- Name : ' + data[key].name + '</h2>'
-                        + '<h3>' + 'Description : ' + data[key].description + '</h3>'
-                        + '<h4>' + 'Created at : ' + data[key].created_at + '</h4>'
-                        + '<h4>' + 'Updated at : ' + data[key].updated_at + '</h4>'
+                    const nameOfRep = document.createElement('h2');
+                    const description = document.createElement('h3');
+                    const created = document.createElement('h3');
+                    const updated = document.createElement('h3');
+                    createAndAppend('h2', users, '<br>' + '<~~~~~~~~~~~~~~~~>')
+                    nameOfRep.innerHTML = '-Repository name : ' + data[key].name;
+                    description.innerHTML = 'Description : ' + data[key].description;
+                    created.innerHTML = 'Created at : ' + data[key].created_at;
+                    updated.innerHTML = 'Updated at : ' + data[key].updated_at;
 
-                        + '</div>';
+                    users.appendChild(repositoryDiv);
+                    repositoryDiv.appendChild(nameOfRep);
+                    repositoryDiv.appendChild(description);
+                    repositoryDiv.appendChild(created);
+                    repositoryDiv.appendChild(updated);
 
+                    createAndAppend('h1', repositoryDiv, '<br>' + 'Contributors : ');
 
-
-                    createAndAppend('div', users, userInfo);
 
                     fetchJSON(data[key].contributors_url).then(contData => {
                         for (let i = 0; i < contData.length; i++) {
-                            let element = contData[i].login;
-                            createAndAppend('h1', users, element);
 
+                            const ContributorName = document.createElement('h2');
+                            const ContributorPic = document.createElement('img');
+
+                            ContributorPic.setAttribute('src', contData[i].avatar_url);
+                            ContributorName.innerHTML = contData[i].login;
+
+                            repositoryDiv.appendChild(ContributorName);
+                            repositoryDiv.appendChild(ContributorPic);
 
                         }
 
-
-
-
-
-
-
-
-                    }
-
-                    );
-
-                };
-            };
-        }
-
-
-
-
-        )
-    };
-
-    // + '<h3>' + 'Contributors : ' + contributorsName[i] + '</h3>' + '<br>'
-
-
-
+                    });
+                }
+            }
+        });
+    }
 
     function createAndAppend(name, parent, innerHTML) {
         const child = document.createElement(name);
